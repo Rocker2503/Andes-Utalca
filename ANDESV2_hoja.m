@@ -27,6 +27,9 @@ fileName = 'T1R1_HO.sig';
 [reflectancia] = CalculoReflectancia(wave_new,data_new);
 
 %Calcular indices
+%indicesMap corresponde a un HashMap de tipo key value
+%indicesMap('nombreIndice', valor)
+%ejemplo: indicesMap('CITRA') retorna el valor del indice CITRA
 [indicesMap] = indices(reflectancia)
 
 %Exportar indices
