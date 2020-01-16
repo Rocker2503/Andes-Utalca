@@ -17,6 +17,17 @@ mkdir T4
 cd 'C:\HYPER'
 fileName = 'T1R1_HO.sig';
 
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%Medicion puntual
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+medicionPuntual(fileName);
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%Caso de prueba para T1R1
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %Lectura del archivo .sig
 [wavelength, data, new_wave, new_data] = LeerArchivo(fileName);
 
@@ -40,6 +51,39 @@ exportarIndices(fileNameIndice, indicesMap);
 fileNameReflectancia = 'C:\HYPER\INDICES\T1\T1R1-D1-REFLECTANCIA.csv';
 exportarReflectancia(fileNameReflectancia, reflectancia);
 
+function [] = medicionPuntual(fileName)
+
+    mkdir 'C:\HYPER'
+    cd 'C:\HYPER'
+    mkdir INDICES
+    cd 'C:\HYPER\INDICES'
+    mkdir PUNTUAL
+    
+    cd 'C:\HYPER'
+    
+    %Lectura del archivo .sig
+    [wavelength, data, new_wave, new_data] = LeerArchivo(fileName);
+
+    %Interpolacion lineal de los datos
+    [wave_new, data_new] = Interpolar(wavelength,data,new_wave, new_data);
+
+    %Calcular reflectancia para valores enteros
+    [reflectancia] = CalculoReflectancia(wave_new,data_new);
+
+    %Calcular indices
+    %indicesMap corresponde a un HashMap de tipo key value
+    %indicesMap('nombreIndice', valor)
+    %ejemplo: indicesMap('CITRA') retorna el valor del indice CITRA
+    [indicesMap] = indices(reflectancia)
+
+    %Exportar indices
+    fileNameIndice = 'C:\HYPER\INDICES\PUNTUAL\T1R1-D1-INDICES.csv';
+    exportarIndices(fileNameIndice, indicesMap);
+
+    %Exportar reflectancia
+    fileNameReflectancia = 'C:\HYPER\INDICES\PUNTUAL\T1R1-D1-REFLECTANCIA.csv';
+    exportarReflectancia(fileNameReflectancia, reflectancia);
+end
 
 function [] = exportarReflectancia(fileNameReflectancia, reflectancia)
     fid= fopen(fileNameReflectancia,'w');
