@@ -35,15 +35,18 @@ function [reflectancia] = ANDESV2(fileName)
     %indicesMap corresponde a un HashMap de tipo key value
     %indicesMap('nombreIndice', valor)
     %ejemplo: indicesMap('CITRA') retorna el valor del indice CITRA
-    [indicesMap] = indices(reflectancia)
+    
+    %[indicesMap] = indices(reflectancia)
 
     %Exportar indices
-    fileNameIndice = 'C:\HYPER\INDICES\T1\T1R1-D1-INDICES.csv';
-    exportarIndices(fileNameIndice, indicesMap);
+    
+    %fileNameIndice = 'C:\HYPER\INDICES\T1\T1R1-D1-INDICES.csv';
+    %exportarIndices(fileNameIndice, indicesMap);
 
     %Exportar reflectancia
-    fileNameReflectancia = 'C:\HYPER\INDICES\T1\T1R1-D1-REFLECTANCIA.csv';
-    exportarReflectancia(fileNameReflectancia, reflectancia);
+    
+    %fileNameReflectancia = 'C:\HYPER\INDICES\T1\T1R1-D1-REFLECTANCIA.csv';
+    %exportarReflectancia(fileNameReflectancia, reflectancia);
 
 end
 
