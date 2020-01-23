@@ -1,0 +1,14 @@
+function [] = exportarIndicesNuevo(fileNameIndice, indicesMap)
+	    fid= fopen(fileNameIndice,'w');
+        
+        keySet = keys(indicesMap);
+        for i = 1:length(indicesMap)
+            disp(keySet{i});
+            
+            fprintf(fid, '%c;%f\n',indicesMap(%c), [keySet{i}, keySet{i}] );
+            fprintf( fid, '%c,%7.3f\n', [ 122, pi, 122, pi ] )            
+            fprintf(fid, exportKey{1},indicesMap(keySet{i}) );
+        end
+        %fprintf(fid, 'ARI;%f\n',indicesMap('ARI'));
+        fclose(fid);
+end
