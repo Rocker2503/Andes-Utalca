@@ -1,7 +1,5 @@
 
 function [new_reflectancia,valores] = acotarReflectancia(reflectancia, limiteIzquierdo, limiteDerecho)
-	disp(limiteIzquierdo)
-	disp(limiteDerecho)
 	valores = [limiteIzquierdo:limiteDerecho];
 	new_reflectancia = zeros(limiteDerecho-limiteIzquierdo,1);
 	indice = 1;
