@@ -82,10 +82,9 @@ function [indices] = agregarNuevoIndice(indices, reflectancia, nombre, funcion)
     
         %Transformar 
         %
-        %format long;
         indiceFinal = str2num(localFuncion);
-        %truncar
-        indiceFinal = floor(indiceFinal*100000)/100000;
+        %aproximar a la 5ta decima
+        indiceFinal = round(indiceFinal, 5);
         disp('indiceFinal');
         disp(indiceFinal);
         
