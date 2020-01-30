@@ -76,19 +76,20 @@ function [indices] = agregarNuevoIndice(indices, reflectancia, nombre, funcion)
             
         end
         
-        disp('Final!!!!!!');
+        disp('Funcion Final');
         disp(localFuncion);
         disp(class(localFuncion));
     
         %Transformar 
         %
-        format long;
         indiceFinal = str2num(localFuncion);
+        %aproximar a la 5ta decima
+        indiceFinal = round(indiceFinal, 5);
         disp('indiceFinal');
         disp(indiceFinal);
         
         
-        %indices(nombre) = funcion;
+        indices(nombre) = indiceFinal;
         
         
 end
