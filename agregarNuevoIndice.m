@@ -1,48 +1,27 @@
 function [indices] = agregarNuevoIndice(indices, reflectancia, nombre, funcion)
         minimo = 350;
         maximo = 2500;
-        
-        disp(nombre);
-        disp(class(nombre));
-        disp(funcion);
-        disp(class(funcion));
-        
-        
-        %(500-350)/(500-350)
-        %(1.2*(1.2*((reflectancia(880-349)))-(reflectancia(554-349)))-2.5*(reflectancia(758-349)-reflectancia(554-349)))
-        %(0.5*(120*(reflectancia(758-349)-reflectancia(554-349))-200*(reflectancia(674-349)-reflectancia(554-349))))
-        
+
         %parsear funcion y obtener longitudes de onda
         longitudesOnda = [];
         
         split = regexp(funcion, '[-+*/()]', 'split');
-        disp('size');
-        disp(split);
-        disp(length(split));
-        for sub = 1:length(split)
-            disp('prints');
-            
+
+        for sub = 1:length(split)            
             local = cell2mat(split(sub));
             local = str2double(local);
             
-            disp('if');
             if( (~isnan(local)) && (local >= minimo) && (local <= maximo) )
                 disp(sub);
                 disp(local);
                 
                 if(isempty(longitudesOnda) )
                     longitudesOnda = [longitudesOnda local];
-                    %disp('contiene0');
-                    %disp(contiene(ismember(longitudesOnda, local)) );
                 elseif(contiene(ismember(longitudesOnda, local)) == 0 )
-                    %disp('contiene2');
-                    %disp(contiene(ismember(longitudesOnda, local)) );
                     longitudesOnda = [longitudesOnda local];
                 end
             end
         end
-        disp('long');
-        disp(longitudesOnda);              
         
         
         %remplazar valores de longitudes de onda
@@ -70,25 +49,23 @@ function [indices] = agregarNuevoIndice(indices, reflectancia, nombre, funcion)
             %concatenar y continuar ciclo
             localFuncion = unificar(subSplit);
             disp(localFuncion);
-            
-            disp('INDICEBG1');
-            disp(indices('BGI1'));
-            
+                        
         end
         
-        disp('Final!!!!!!');
+        disp('Funcion Final');
         disp(localFuncion);
         disp(class(localFuncion));
     
         %Transformar 
         %
-        format long;
         indiceFinal = str2num(localFuncion);
+        %aproximar a la 5ta decima
+        indiceFinal = round(indiceFinal, 5);
         disp('indiceFinal');
         disp(indiceFinal);
         
         
-        %indices(nombre) = funcion;
+        indices(nombre) = indiceFinal;
         
         
 end

@@ -509,7 +509,8 @@ try
       else
          Answer = getAnswer(); % get the final answers
          ReqMet = checkReq(Answer);
-         if ~ReqMet
+         if ( (~ReqMet) || (strcmp(Answer(2), '()') ) )
+            ReqMet = 0;
             h = errordlg('Todos los campos requeridos deben ser llenados.','Faltan campos requeridos(s)','modal');
             uiwait(h);
          end
