@@ -3,11 +3,12 @@ function [] = databaseConnectionInsert(query)
     conn = database('MySQL','root','');
 
     %Set query to execute on the database
-     %query = sprintf('INSERT INTO andes VALUES(%i,%s%s%s)',4, "'", 'test',  "'" );
-     disp(query)
+    %obtener auto id agregado
+    query = sprintf('INSERT INTO andes(nombre) VALUES(%s%s%s) SELECT LAST_INSERT_ID();', "'", 'test0',  "'" );
+    disp(query);
 
     %% Execute query and fetch results
-    fetch(exec(conn,query));
+    fetch(exec(conn,query));    
 
     %% Close connection to database
     close(conn)
