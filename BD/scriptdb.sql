@@ -1,8 +1,7 @@
-
-
 CREATE TABLE IF NOT EXISTS Andes(
 	id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	nombre varchar(32) not null
+	nombre varchar(32) not null,
+	UNIQUE(nombre)
 )AUTO_INCREMENT = 1;
 
 CREATE TABLE IF NOT EXISTS Indice(
