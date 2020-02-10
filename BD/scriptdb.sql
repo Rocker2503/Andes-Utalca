@@ -33,7 +33,14 @@ CREATE TABLE IF NOT EXISTS InstanciaIndice(
 
 CREATE TABLE IF NOT EXISTS Reflectancia(
 	longitud INTEGER NOT NULL,
-	valor DOUBLE(7,7) NOT NULL,
+	valor DOUBLE(7,5) NOT NULL,
     idReflectancia INTEGER NOT NULL,
     FOREIGN KEY (idReflectancia) References Tratamiento(idReflectancia)
+);
+
+CREATE TABLE IF NOT EXISTS Correlacion(
+	nombre varchar(32) NOT NULL,
+	valor DOUBLE(8,5) NOT NULL,
+	idTratamiento INTEGER NOT NULL,
+	FOREIGN KEY (idTratamiento) References Tratamiento(id)
 );
