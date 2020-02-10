@@ -1,4 +1,4 @@
-function agregarTratamientoReflectancia(idBD,tratamiento,reflectancia)
+function [id] = agregarTratamientoReflectancia(idBD,tratamiento,reflectancia)
     
     if(idBD == 0)
         return
@@ -32,6 +32,12 @@ function agregarTratamientoReflectancia(idBD,tratamiento,reflectancia)
         fetch(exec(conn,query));
     end
         
+    query = sprintf('SELECT id FROM tratamiento WHERE id = (SELECT MAX(id) FROM tratamiento)');
+    disp(query)
+    data = fetch(conn,query);
+    data = cell2mat(table2cell(data));
+    id = data;
     close(conn);
     clear conn query
+    
 end
