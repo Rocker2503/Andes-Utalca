@@ -41,7 +41,7 @@ function [] = databaseConnectionInsertIndices(query)
         localMax = max(longitudesOnda(:));
         localMin = min(longitudesOnda(:));
                 
-        query = sprintf('INSERT INTO indice(nombre, formula, longitudOndaInferior, longitudOndaSuperior) VALUES(%s%s%s, %s%s%s, %i, %i) ;', "'", localNombre, "'" , "'", localFormula, "'", localMin, localMax);
+        query = sprintf('INSERT INTO indice(nombre, formula, longitudOndaInferior, longitudOndaSuperior, categoria) VALUES(%s%s%s, %s%s%s, %i, %i, %s%s%s) ;', "'", localNombre, "'" , "'", localFormula, "'", localMin, localMax, "'", 'default', "'");
         disp(query);
         
         fetch(exec(conn,query));  
