@@ -5,10 +5,10 @@ function [indices] = agregarNuevoIndice(indices, reflectancia, nombre, funcion)
         %parsear funcion y obtener longitudes de onda
         longitudesOnda = [];
         
-        split = regexp(funcion, '[-+*/()]', 'split');
+        splitl = regexp(funcion, '[-+*/()]', 'split');
 
-        for sub = 1:length(split)            
-            local = cell2mat(split(sub));
+        for sub = 1:length(splitl)            
+            local = cell2mat(splitl(sub));
             local = str2double(local);
             
             if( (~isnan(local)) && (local >= minimo) && (local <= maximo) )
@@ -26,29 +26,42 @@ function [indices] = agregarNuevoIndice(indices, reflectancia, nombre, funcion)
         
         %remplazar valores de longitudes de onda
         %
-        
         localFuncion = funcion;
+        %localFuncion = cellstr(localFuncion);
         for i = 1:length(longitudesOnda)
             disp('REEMPLAZO');
-            subSplit = regexp(localFuncion, num2str(longitudesOnda(i)), 'split');
-            disp(subSplit);
+            disp(longitudesOnda(i));
+
+            %separar
+            disp(class(localFuncion));
+            disp(localFuncion);
+            [subSplit,matches] = split(localFuncion,["-","+","*","/","(",")"]);
+
                         
-            for s = 1:(length(subSplit) - 1 )
-                %format long;
-                long = reflectancia(longitudesOnda(i) - 349 );
-                disp('long reflectanciaaaaaa!!!!!!!!!!!!!!!!!!!');
-                disp(long);
-                %format long;
-                newSub = strcat(subSplit(s), num2str(long) );
-                %format long;
-                subSplit(s) = newSub;
-                
-                disp('newSub');
-                disp(newSub);
+            for s = 1:(length(subSplit))
+                check = subSplit(s);
+                check = str2double(check{1});
+                if(check == longitudesOnda(i))
+                    disp(subSplit(s));
+                    format long;
+                    long = reflectancia(longitudesOnda(i) - 349 );
+                    disp('long reflectanciaaaaaa!!!!!!!!!!!!!!!!!!!');
+                    disp(long);
+                    %format long;
+                    %newSub = strcat(subSplit(s), num2str(long) );
+                    %newSub = str2cell(newSub);
+                    %format long;
+                    subSplit(s) = cellstr(num2str(long));
+
+                    %disp('newSub');
+                    %disp(newSub);
+                end
             end
             %concatenar y continuar ciclo
-            localFuncion = unificar(subSplit);
-            disp(localFuncion);
+            originalStr = join(subSplit,matches);
+            disp('originalStr');
+            disp(originalStr);
+            localFuncion = originalStr;
                         
         end
         
@@ -58,7 +71,7 @@ function [indices] = agregarNuevoIndice(indices, reflectancia, nombre, funcion)
     
         %Transformar 
         %
-        indiceFinal = str2num(localFuncion);
+        indiceFinal = str2num(localFuncion{1});
         %aproximar a la 5ta decima
         indiceFinal = round(indiceFinal, 5);
         disp('indiceFinal');
