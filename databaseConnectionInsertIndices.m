@@ -1,4 +1,4 @@
-function [] = databaseConnectionInsertIndices(query)
+function [] = databaseConnectionInsertIndices()
     %% Make connection to database
     conn = database('MySQL','root','');
     

@@ -3,7 +3,7 @@ function [] = databaseConnectionInsert(query)
     conn = database('MySQL','root','');
 
     %Set query to execute on the database
-    disp(query);    
+    %disp(query);    
     %% Execute query and fetch results
     fetch(exec(conn,query));  
 
