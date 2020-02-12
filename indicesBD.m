@@ -9,9 +9,7 @@ function [indicesMap] = indicesBD(reflectancia)
         data = databaseConnectionSelect(query);
         
         cur_data = data;
-        disp('size');
         dataSize = size(cur_data,1);
-        disp(dataSize);
         
         for i = 1:dataSize
             row_changed = i;
@@ -30,32 +28,19 @@ function [indicesMap] = indicesBD(reflectancia)
             localLongitudesOnda = getLongitudesOnda(localFormula{1});
             
             valorLocalIndice = calcularIndice(localFormula{1}, reflectancia, localLongitudesOnda);  
-            disp('classvl');
-            disp(localNombre{1});
-            disp(valorLocalIndice);
             
             %rellenar
             keySet = [keySet, localNombre{1}];
             valueSet = [valueSet, valorLocalIndice];            
         end
-
-        %disp(keySet);
-        %disp(valueSet);
         
         indicesMap = containers.Map(keySet,valueSet);
 end
 
 function [indiceFinal] = calcularIndice(localFormula, reflectancia, longitudesOnda)
     localFuncion = localFormula;
-    disp('calcucl');
-    disp(length(longitudesOnda));
-    for i = 1:length(longitudesOnda)
-        disp('REEMPLAZO');
-        disp(longitudesOnda(i));
-        
+    for i = 1:length(longitudesOnda)        
         %separar
-        disp(class(localFuncion));
-        disp(localFuncion);
         [subSplit,matches] = split(localFuncion,["-","+","*","/","(",")"]);        
 
         %reemplazar valor reflectancia
@@ -65,36 +50,21 @@ function [indiceFinal] = calcularIndice(localFormula, reflectancia, longitudesOn
             if(check == longitudesOnda(i))
                 format long;
                 long = reflectancia(longitudesOnda(i) - 349 );
-                disp('long reflectanciaaaaaa!!!!!!!!!!!!!!!!!!!');
-                disp(long);
-                %format long;
-                %newSub = strcat(subSplit(s), num2str(long) );
-                %newSub = str2cell(newSub);
-                %format long;
                 subSplit(s) = cellstr(num2str(long));
-
-                %disp('newSub');
-                %disp(newSub);
             end
         end
         %concatenar y continuar ciclo
         originalStr = join(subSplit,matches);
-        disp('originalStr');
-        disp(originalStr);
         localFuncion = originalStr;
     end
-
-    disp('Funcion Final');
-    disp(localFuncion);
-    disp(class(localFuncion));
+    %disp(localFuncion);
 
     %Transformar 
     %
     indiceFinal = str2num(localFuncion{1});
     %aproximar a la 5ta decima
     indiceFinal = round(indiceFinal, 5);
-    disp('indiceFinal');
-    disp(indiceFinal);
+    %disp(indiceFinal);
 end
 
 function [longitudesOnda] = getLongitudesOnda(funcion)
@@ -109,9 +79,6 @@ function [longitudesOnda] = getLongitudesOnda(funcion)
         local = str2double(local);
 
         if( (~isnan(local)) && (local >= minimo) && (local <= maximo) )
-            disp(sub);
-            disp(local);
-
             if(isempty(longitudesOnda) )
                 longitudesOnda = [longitudesOnda local];
             elseif(contiene(ismember(longitudesOnda, local)) == 0 )
