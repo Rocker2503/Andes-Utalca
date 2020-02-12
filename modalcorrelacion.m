@@ -33,7 +33,7 @@ function [resp] = agregarStruct(handles)
     val = get(handles(1),'Value');
     str = get(handles(1),'String');
     tratamiento = str(val);
-    st = struct('Tratamiento',tratamiento,'Nombre',(get(handles(2),'String')),'Valor',(get(handles(3),'String')));
+    st = struct('Tratamiento',tratamiento,'Nombre',(get(handles(2),'String')),'Valor',str2double((get(handles(3),'String')) ));
     %disp(st)
     global resp;
     resp = [resp , st];
