@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS Indice(
 	nombre varchar(32) not null PRIMARY KEY,
 	formula varchar(256) not null,
 	longitudOndaInferior INTEGER not null,
-	longitudOndaSuperior INTEGER not null
+	longitudOndaSuperior INTEGER not null,
+	categoria varchar(32) not null
 );
 
 CREATE TABLE IF NOT EXISTS Tratamiento(
@@ -24,8 +25,8 @@ CREATE TABLE IF NOT EXISTS Tratamiento(
 )AUTO_INCREMENT = 1;
 
 CREATE TABLE IF NOT EXISTS InstanciaIndice(
-	nombre varchar(32) not null PRIMARY KEY,
-	valor DECIMAL not null,
+	nombre varchar(32) not null,
+	valor DOUBLE(8,5) NOT NULL,
     idTratamiento INTEGER NOT NULL,
 	FOREIGN KEY (idTratamiento) References Tratamiento(id), 
 	FOREIGN KEY (nombre) References Indice(nombre)
