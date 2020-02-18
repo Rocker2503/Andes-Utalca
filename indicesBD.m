@@ -27,6 +27,7 @@ function [indicesMap] = indicesBD(reflectancia)
             %            
             localLongitudesOnda = getLongitudesOnda(localFormula{1});
             
+            %disp(localNombre{1});
             valorLocalIndice = calcularIndice(localFormula{1}, reflectancia, localLongitudesOnda);  
             
             %rellenar
